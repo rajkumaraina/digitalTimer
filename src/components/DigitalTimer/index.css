@@ -1,0 +1,124 @@
+.bgContainer {
+  background-image: linear-gradient(to right, #ffffff, #cffcf1, #ffffff);
+  height: 100vh;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.DigitalHeading {
+  color: #000000;
+  text-align: center;
+  margin: 0;
+  padding-top: 55px;
+}
+
+.MainContainer {
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+}
+@media (max-width: 576px) {
+  .MainContainer {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.timerContainer {
+  background-image: url('https://assets.ccbp.in/frontend/react-js/digital-timer-elapsed-bg.png');
+  background-position: center;
+  width: 400px;
+  height: 400px;
+  background-size: cover;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.timerInMiddleContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 75px;
+  width: 125px;
+  height: 125px;
+  justify-content: center;
+  align-items: center;
+}
+.secondContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.iconsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.eachIcon {
+  display: flex;
+  margin: 8px;
+  justify-content: center;
+  align-items: center;
+}
+.icons {
+  width: 45px;
+  height: 45px;
+}
+.iconDescription {
+  color: #000000;
+  font-weight: bold;
+  font-size: 22px;
+}
+.button {
+  background-color: transparent;
+  border: 0 none;
+  outline: none;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.plus_minusContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.plus_MinusIcon {
+  color: #000000;
+  font-size: 25px;
+  font-weight: bold;
+  margin: 0;
+}
+.timeCount {
+  background-image: linear-gradient(to right, lightgreen, #00d9f5);
+  width: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  margin: 8px;
+  border-radius: 8px;
+}
+
+.timeValue {
+  color: #000000;
+  font-size: 20px;
+  font-weight: bold;
+}
+.heading {
+  color: #00d9f5;
+  margin: 0;
+}
+.smallpara {
+  color: #1e293b;
+  font-size: 20px;
+}
+.para {
+  margin: 0;
+  font-weight: bold;
+}
