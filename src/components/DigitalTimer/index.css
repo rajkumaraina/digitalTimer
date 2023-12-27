@@ -20,12 +20,6 @@
   width: 50%;
   justify-content: space-between;
 }
-@media (max-width: 576px) {
-  .MainContainer {
-    display: flex;
-    flex-direction: column;
-  }
-}
 .timerContainer {
   background-image: url('https://assets.ccbp.in/frontend/react-js/digital-timer-elapsed-bg.png');
   background-position: center;
@@ -36,6 +30,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@media (max-width: 576px) {
+  .MainContainer {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+  }
+  .timerContainer {
+    width: 270px;
+    height: 250px;
+    background-position: center;
+  }
 }
 .timerInMiddleContainer {
   display: flex;
@@ -121,4 +127,10 @@
 .para {
   margin: 0;
   font-weight: bold;
+}
+@media (max-width: 576px) {
+  .MainContainer {
+    display: flex;
+    flex-direction: column;
+  }
 }
