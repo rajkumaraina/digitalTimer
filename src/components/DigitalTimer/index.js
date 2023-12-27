@@ -6,7 +6,8 @@ class DigitalTimer extends Component {
   state = {isStarted: false, timerMin: 25, timerSec: 0, initialMin: 25}
 
   StartButton = () => {
-    const {isStarted, timerMin, timerSec} = this.state
+    const {isStarted} = this.state
+    console.log('startButton Called')
     this.setState({isStarted: !isStarted})
     this.timerId = setInterval(this.tick, 1000)
   }
@@ -20,36 +21,53 @@ class DigitalTimer extends Component {
   }
 
   tick = () => {
-    const {timerSec} = this.state
+    const {timerSec, timerMin, initialMin} = this.state
+    console.log(timerMin, timerSec)
+
     if (timerSec === 0) {
       this.setState(prevState => ({
         timerSec: 60,
         timerMin: prevState.timerMin - 1,
       }))
     }
+
     this.setState(prevState => ({
       timerMin: prevState.timerMin,
       timerSec: prevState.timerSec - 1,
     }))
+
+    if (timerMin === 0 && timerSec === 1) {
+      this.setState({timerMin: '00', timerSec: 0, isStarted: false})
+      clearInterval(this.timerId)
+    }
   }
 
   ResetButton = () => {
+    clearInterval(this.timerId)
     const {isStarted, initialMin} = this.state
     const resetMin = initialMin
-    console.log(initialMin)
     this.setState({
-      timeMin: 25,
+      timerMin: initialMin,
       timerSec: 0,
-      isStarted: !isStarted,
+      isStarted: false,
       initialMin: resetMin,
     })
-    clearInterval(this.timerId)
   }
 
   valueDecrease = () => {
+    const {timerMin} = this.state
+    if (timerMin !== 0) {
+      this.setState(prevState => ({
+        timerMin: prevState.timerMin - 1,
+        initialMin: prevState.initialMin - 1,
+      }))
+    }
+  }
+
+  valueDontDecrease = () => {
     this.setState(prevState => ({
-      timerMin: prevState.timerMin - 1,
-      initialMin: prevState.initialMin - 1,
+      timerMin: prevState.timerMin,
+      initialMin: prevState.initialMin,
     }))
   }
 
@@ -60,33 +78,40 @@ class DigitalTimer extends Component {
     }))
   }
 
+  valueDontIncrease = () => {
+    this.setState(prevState => ({
+      timerMin: prevState.timerMin,
+      initialMin: prevState.initialMin,
+    }))
+  }
+
   render() {
     const {isStarted, timerMin, timerSec, initialMin} = this.state
     let secLessthan9 = false
+    let onClickEvent = false
     if (timerSec <= 9) {
       secLessthan9 = true
     }
     let imageElement
     if (isStarted === true) {
       imageElement = (
-        <button className="button" type="button">
-          <img
-            src="https://assets.ccbp.in/frontend/react-js/pause-icon-img.png"
-            alt="pause icon"
-            className="icons"
-          />
-        </button>
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/pause-icon-img.png"
+          alt="pause icon"
+          className="icons"
+        />
       )
     } else {
       imageElement = (
-        <button className="button" type="button">
-          <img
-            src="https://assets.ccbp.in/frontend/react-js/play-icon-img.png"
-            alt="play icon"
-            className="icons"
-          />
-        </button>
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/play-icon-img.png"
+          alt="play icon"
+          className="icons"
+        />
       )
+    }
+    if (isStarted === true) {
+      onClickEvent = true
     }
     return (
       <div className="bgContainer">
@@ -95,7 +120,7 @@ class DigitalTimer extends Component {
           <div className="timerContainer">
             <div className="timerInMiddleContainer">
               <h1 className="heading">
-                {initialMin}:{secLessthan9 ? `0${timerSec}` : timerSec}
+                {timerMin}:{secLessthan9 ? `0${timerSec}` : timerSec}
               </h1>
               <p className="para">{isStarted ? 'Running' : 'Paused'}</p>
             </div>
@@ -107,20 +132,19 @@ class DigitalTimer extends Component {
                 <button
                   className="button"
                   type="button"
-                  onClick={this.pauseButton}
+                  onClick={isStarted ? this.pauseButton : this.StartButton}
                 >
                   {isStarted ? 'Pause' : 'Start'}
                 </button>
               </div>
               <div className="eachIcon">
-                <button type="button" className="button">
-                  <img
-                    src="https://assets.ccbp.in/frontend/react-js/reset-icon-img.png"
-                    alt="reset icon"
-                    className="icons"
-                  />
-                </button>
+                <img
+                  src="https://assets.ccbp.in/frontend/react-js/reset-icon-img.png"
+                  alt="reset icon"
+                  className="icons"
+                />
                 <button
+                  type="button"
                   className="iconDescription button"
                   onClick={this.ResetButton}
                 >
@@ -133,7 +157,9 @@ class DigitalTimer extends Component {
               <button
                 type="button"
                 className="button plus_MinusIcon"
-                onClick={this.valueDecrease}
+                onClick={
+                  isStarted ? this.valueDontDecrease : this.valueDecrease
+                }
               >
                 -
               </button>
@@ -143,7 +169,9 @@ class DigitalTimer extends Component {
               <button
                 type="button"
                 className="button plus_MinusIcon "
-                onClick={this.valueIncrease}
+                onClick={
+                  isStarted ? this.valueDontIncrease : this.valueIncrease
+                }
               >
                 +
               </button>
